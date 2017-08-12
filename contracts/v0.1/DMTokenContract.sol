@@ -131,7 +131,7 @@ contract DMarketToken is StandardToken, Ownable {
         }
     }
 
-    function tokenReserve(address _to, uint256 _value) returns (bool) {
+    function tokenReserve(address _to, uint256 _value) internal returns (bool) {
         balances[_to] = balances[_to].add(_value);
         Transfer(msg.sender, _to, _value);
         return true;

@@ -1,0 +1,7 @@
+{
+  "name": "dmarket-token",
+  "version": "0.2",
+  "dependencies": {
+    "zeppelin-solidity": "^1.2.0"
+  }
+}
