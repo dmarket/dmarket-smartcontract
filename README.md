@@ -1,6 +1,6 @@
 ## DMarket token
 
-Cryptocurrency for trading all virtual times from any game on any platform globally.
+Cryptocurrency for trading all virtual items from any game on any platform globally.
 
 ## Requirements
 
