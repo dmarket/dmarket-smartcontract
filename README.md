@@ -1,6 +1,6 @@
 ## DMarket token
 
-Cryptocurrency for trading all and any virtual in-game items any platform globally.
+Cryptocurrency for trading any virtual in-game items on any platform globally.
 
 ## Requirements
 
@@ -11,8 +11,7 @@ To run tests you need to install the following software:
 
 ## How to test
 
-To run test, open the terminal and run the following commands:
-
+Open the terminal and run the following commands:
 
 ```sh
 $ cd dmarket-smartcontract
