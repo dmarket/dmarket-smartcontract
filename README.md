@@ -1,6 +1,6 @@
 ## DMarket token
 
-Cryptocurrency for trading all virtual items from any game on any platform globally.
+Cryptocurrency for trading all and any virtual in-game items any platform globally.
 
 ## Requirements
 
@@ -11,14 +11,16 @@ To run tests you need to install the following software:
 
 ## How to test
 
-To run test open the terminal and run the following commands:
+To run test, open the terminal and run the following commands:
+
 
 ```sh
 $ cd dmarket-smartcontract
 $ truffle migrate
 ```
 
-**NOTE:** All tests must be run separately as specified
+NOTE: All tests must be run separately as specified.
+
 
 ## Deployment
 
@@ -28,7 +30,7 @@ To deploy smart contracts to live network do the following steps:
 $ cd dmarket-smartcontract
 $ truffle console
 ```
-2. Inside truffle console invoke "migrate" command to deploy contracts:
+2. Inside truffle console, invoke "migrate" command to deploy contracts:
 ```sh
 truffle> migrate
 ```
