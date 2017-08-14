@@ -1,6 +1,12 @@
 {
   "name": "dmarket-token",
-  "version": "0.2",
+  "description": "Cryptocurrency for trading any virtual in-game items on any platform globally",
+  "author": "Ilya Sinyakin <sinyakin.ilya@gmail.com>",
+  "license": "MIT",
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/suntechsoft/dmarket-smartcontract.git"
+  },
   "dependencies": {
     "zeppelin-solidity": "^1.2.0"
   }
