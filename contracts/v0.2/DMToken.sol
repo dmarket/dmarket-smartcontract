@@ -6,6 +6,6 @@ contract DMToken is MintableToken {
 
     string public name = "DMarket Token";
     string public symbol = "DMT";
-    uint256 public decimals = 18;
+    uint256 public decimals = 8;
 
 }
