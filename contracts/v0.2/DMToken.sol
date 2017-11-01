@@ -45,7 +45,7 @@ contract DMToken is MintableToken {
         /**
         *  1-Phase: 36037245 * 10^8 tokens
         *  2-Phase: 100000000 * 10^8 tokens
-        *    36037245 + 100000000) % 15 =  20405587 * 10^8 tokens
+        *  Additionaly issued tokens: (36037245 + 100000000) % 15 =  20405587 * 10^8 tokens
         *  HardCap will be equal: 36037245 + 100000000 + 20405587 = 156442831 * 10^8 tokens
         */
         hardCap = 15644283100000000;
