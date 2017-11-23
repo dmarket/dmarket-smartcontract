@@ -37,7 +37,7 @@ contract MintableToken is StandardToken, Ownable {
 contract DMToken is MintableToken {
 
     string public name = "DMarket Token";
-    string public symbol = "DMT";
+    string public symbol = "Mark";
     uint256 public decimals = 8;
 
     function DMToken() {
