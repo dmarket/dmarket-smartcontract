@@ -100,7 +100,7 @@ contract ERC20 is ERC20Basic {
 contract ApprovalContract is ERC20 {
     using SafeMath for uint256;
 
-    mapping (address => mapping (address => uint256)) allowed;
+    mapping (address => mapping (address => uint256)) public allowed;
 
     /**
      * @dev Approve the passed address to spend the specified amount of tokens on behalf of msg.sender.
@@ -154,10 +154,16 @@ contract ApprovalContract is ERC20 {
     }
 }
 
+/**
+ * @title Mintable token
+ * @dev Simple ERC20 Token example, with mintable token creation
+ * @dev Issue: * https://github.com/OpenZeppelin/zeppelin-solidity/issues/120
+ * Based on code by TokenMarketNet: https://github.com/TokenMarketNet/ico/blob/master/contracts/MintableToken.sol
+ */
 contract MintableToken is ApprovalContract, Ownable {
 
     uint256 public hardCap;
-    mapping(address => uint256) balances;
+    mapping(address => uint256) public balances;
 
     event Mint(address indexed to, uint256 amount);
 
@@ -182,15 +188,19 @@ contract MintableToken is ApprovalContract, Ownable {
     }
 }
 
+/**
+ * @title Vesting token
+ * @dev TODO.
+ */
 contract Vesting is MintableToken {
 
-    event VestingMemberAdded(address _address, uint256 _amount, uint _start, uint _end);
+    event VestingMemberAdded(address indexed _address, uint256 _amount, uint _start, uint _end);
 
     struct _Vesting {
-    uint256 totalSum;
-    uint256 start;
-    uint256 end;
-    uint256 usedAmount;
+        uint256 totalSum;     //total amount
+        uint256 start;        //start block
+        uint256 end;          //end block
+        uint256 usedAmount;   //the amount of paid payments
     }
 
     mapping (address => _Vesting ) public vestingMembers;
