@@ -214,25 +214,10 @@ contract Vesting is MintableToken {
 }
 
 
-contract RefundContract is Ownable {
-    event RefundTokens(address _token, address _refund, uint _value);
-
-    function refundTokens(address _token, address _refund, uint _value) public onlyOwner {
-        require(_token != address(this));
-
-        ERC20 token = ERC20(_token);
-        token.transfer(_refund, _value);
-
-        RefundTokens(_token, _refund, _value);
-    }
-
-}
-
-
-contract DMToken is Vesting, RefundContract {
+contract DMToken is Vesting {
 
     string public name = "DMarket Token";
-    string public symbol = "DMC";
+    string public symbol = "DMT";
     uint256 public decimals = 8;
 
     function DMToken() public {
