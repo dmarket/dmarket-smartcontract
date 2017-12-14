@@ -139,7 +139,7 @@ contract Vesting is MintableToken {
     }
 
     function currentPart(address _address) private constant returns (uint256) {
-        if (vestingMembers[_address].totalSum == 0 || block.timestamp <= vestingMembers[_address].start) {
+        if (vestingMembers[_address].totalSum == 0 || block.number <= vestingMembers[_address].start) {
             return 0;
         }
         if (block.number >= vestingMembers[_address].end) {
