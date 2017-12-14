@@ -98,7 +98,6 @@ contract MintableToken is ApprovalContract, Ownable {
 
 /**
  * @title Vesting token
- * @dev TODO.
  */
 contract Vesting is MintableToken {
 
@@ -114,17 +113,17 @@ contract Vesting is MintableToken {
     mapping (address => _Vesting ) public vestingMembers;
 
     function addVestingMember(
-    address _address,
-    uint256 _amount,
-    uint256 _start,
-    uint256 _end
+        address _address,
+        uint256 _amount,
+        uint256 _start,
+        uint256 _end
     ) onlyOwner public returns (bool) {
         require(
-        _address != address(0) &&
-        _amount > 0 &&
-        _start < _end &&
-        vestingMembers[_address].totalSum == 0 &&
-        balances[msg.sender] > _amount
+            _address != address(0) &&
+            _amount > 0 &&
+            _start < _end &&
+            vestingMembers[_address].totalSum == 0 &&
+            balances[msg.sender] > _amount
         );
 
         balances[msg.sender] = balances[msg.sender].sub(_amount);
@@ -140,7 +139,7 @@ contract Vesting is MintableToken {
     }
 
     function currentPart(address _address) private constant returns (uint256) {
-        if (vestingMembers[_address].totalSum == 0) {
+        if (vestingMembers[_address].totalSum == 0 || block.timestamp <= vestingMembers[_address].start) {
             return 0;
         }
         if (block.number >= vestingMembers[_address].end) {
@@ -214,49 +213,51 @@ contract Vesting is MintableToken {
     }
 }
 
-contract DMToken is Vesting {
+
+contract RefundContract is Ownable {
+    event RefundTokens(address _token, address _refund, uint _value);
+
+    function refundTokens(address _token, address _refund, uint _value) public onlyOwner {
+        require(_token != address(this));
+
+        ERC20 token = ERC20(_token);
+        token.transfer(_refund, _value);
+
+        RefundTokens(_token, _refund, _value);
+    }
+
+}
+
+
+contract DMToken is Vesting, RefundContract {
 
     string public name = "DMarket Token";
-    string public symbol = "MARK";
+    string public symbol = "DMC";
     uint256 public decimals = 8;
 
     function DMToken() public {
         hardCap = 15644283100000000;
     }
 
-    function multiTransfer(address[] recipients, uint256[] amounts) public onlyOwner {
+    function multiTransfer(address[] recipients, uint256[] amounts) public {
         require(recipients.length == amounts.length);
-        uint256 sum = 0;
-        for (uint i = 0; i < amounts.length; i++) {
-            require(recipients[i] != address(0));
-            sum += amounts[i];
-        }
-        require(sum <= balances[msg.sender]);
-        for (i = 0; i < recipients.length; i++) {
+        for (uint i = 0; i < recipients.length; i++) {
             transfer(recipients[i], amounts[i]);
         }
     }
 
     function multiVesting(
-    address[] _address,
-    uint256[] _amount,
-    uint256[] _start,
-    uint256[] _end
+        address[] _address,
+        uint256[] _amount,
+        uint256[] _start,
+        uint256[] _end
     ) public onlyOwner {
         require(
-        _address.length == _amount.length &&
-        _address.length == _start.length &&
-        _address.length == _end.length
+            _address.length == _amount.length &&
+            _address.length == _start.length &&
+            _address.length == _end.length
         );
-
-        uint256 sum = 0;
-        for (uint i = 0; i < _amount.length; i++) {
-            require(_address[i] != address(0));
-            sum += _amount[i];
-        }
-        require(sum <= balances[msg.sender]);
-
-        for (i = 0; i < _address.length; i++) {
+        for (uint i = 0; i < _address.length; i++) {
             addVestingMember(_address[i], _amount[i], _start[i], _end[i]);
         }
     }
